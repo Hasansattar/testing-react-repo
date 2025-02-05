@@ -1,5 +1,9 @@
 pipeline {
     agent any
+     tools {
+        nodejs 'Node18'  // This should match the name of the NodeJS installation in Jenkins
+    }
+
 
     environment {
         DOCKER_IMAGE = 'hasansattar/react-app:latest'
