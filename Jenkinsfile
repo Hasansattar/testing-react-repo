@@ -34,7 +34,7 @@ pipeline {
 
         stage('Push Image to Docker Hub') {
             steps {
-                withDockerRegistry([credentialsId: 'docker-hub-credentials', url: '']) {
+                withDockerRegistry([credentialsId: 'docker-hub-credentials', url: 'https://github.com/Hasansattar/testing-react-repo.git']) {
                     sh "docker push $DOCKER_IMAGE"
                 }
             }
