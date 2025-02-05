@@ -8,11 +8,11 @@ pipeline {
     }
 
     stages {
-        stage('Clone Repository') {
-            steps {
-                git 'https://github.com/Hasansattar/testing-react-repo.git'
-            }
-        }
+        // stage('Clone Repository') {
+        //     steps {
+        //         git 'https://github.com/Hasansattar/testing-react-repo.git'
+        //     }
+        // }
 
         stage('Install Dependencies') {
             steps {
