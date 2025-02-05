@@ -8,11 +8,7 @@ pipeline {
     }
 
     stages {
-        // stage('Clone Repository') {
-        //     steps {
-        //         git 'https://github.com/Hasansattar/testing-react-repo.git'
-        //     }
-        // }
+        // Clone Repository is commented out, assuming the workspace is already set
 
         stage('Install Dependencies') {
             steps {
@@ -34,7 +30,8 @@ pipeline {
 
         stage('Push Image to Docker Hub') {
             steps {
-                withDockerRegistry([credentialsId: 'docker-hub-credentials', url: 'https://github.com/Hasansattar/testing-react-repo.git']) {
+                withDockerRegistry([credentialsId: 'docker-hub-credentials', url: 'https://index.docker.io/v1/']) {
+                    sh "docker login -u hasansattar -p hasansattar650"
                     sh "docker push $DOCKER_IMAGE"
                 }
             }
@@ -43,6 +40,7 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 sh """
+                kubectl config use-context your-k8s-context
                 kubectl set image deployment/$K8S_DEPLOYMENT react-container=$DOCKER_IMAGE -n $K8S_NAMESPACE
                 """
             }
