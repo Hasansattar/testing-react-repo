@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/Hasansattar/your-react-repo.git'
+                git 'https://github.com/Hasansattar/testing-react-repo.git'
             }
         }
 
