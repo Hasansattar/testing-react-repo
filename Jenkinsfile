@@ -14,11 +14,11 @@ pipeline {
         stage('Install Docker') {
             steps {
                 sh '''
-                sudo apt-get update
-                sudo apt-get install -y docker.io
-                sudo systemctl start docker
-                sudo systemctl enable docker
-                sudo usermod -aG docker jenkins
+                apt-get update
+                apt-get install -y docker.io || true
+                systemctl start docker || true
+                systemctl enable docker || true
+                usermod -aG docker $(whoami) || true
                 '''
             }
         }
