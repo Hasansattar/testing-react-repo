@@ -1,9 +1,8 @@
 pipeline {
     agent any
-     tools {
-        nodejs 'Node18'  // This should match the name of the NodeJS installation in Jenkins
+    tools {
+        nodejs 'Node18'
     }
-
 
     environment {
         DOCKER_IMAGE = 'hasansattar/react-app:latest'
@@ -12,7 +11,17 @@ pipeline {
     }
 
     stages {
-        // Clone Repository is commented out, assuming the workspace is already set
+        stage('Install Docker') {
+            steps {
+                sh '''
+                sudo apt-get update
+                sudo apt-get install -y docker.io
+                sudo systemctl start docker
+                sudo systemctl enable docker
+                sudo usermod -aG docker jenkins
+                '''
+            }
+        }
 
         stage('Install Dependencies') {
             steps {
@@ -28,7 +37,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t $DOCKER_IMAGE ."
+                sh "sudo docker build -t $DOCKER_IMAGE ."
             }
         }
 
